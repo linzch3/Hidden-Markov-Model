@@ -152,19 +152,19 @@
 
 <div align=center><img src="https://latex.codecogs.com/gif.latex?\\&space;\sum_{Obs=Dry,Dryish,Damp,Soggy}P(Obs|Sun)&space;=1;\\&space;\sum_{Obs=Dry,Dryish,Damp,Soggy}P(Obs|Cloud)&space;=&space;1;\\&space;\sum_{Obs=Dry,Dryish,Damp,Soggy}P(Obs|Rain)&space;=&space;1;\\" title="\\ \sum_{Obs=Dry,Dryish,Damp,Soggy}P(Obs|Sun) =1;\\ \sum_{Obs=Dry,Dryish,Damp,Soggy}P(Obs|Cloud) = 1;\\ \sum_{Obs=Dry,Dryish,Damp,Soggy}P(Obs|Rain) = 1;\\" /></div>
 
-对于条件概率，可以酱理解：P(A|B)说的是在A已经发生的情况下（即是结果，明显可观察到的状态）B发生（即是原因，隐藏导致这一状态的“导火线”）的概率。
+对于条件概率，可以酱理解：P(A|B)说的是在A（即是结果，明显可观察到的状态）已经发生的情况下B发生（即是原因，隐藏导致这一状态的“导火线”）的概率。
 
 除了定义马尔科夫过程的概率关系，我们还需定义一个名为 混淆矩阵（confusion matrix）的矩阵，它**包含了给定一个隐藏状态后得到的观察状态的概率**。对于天气例子，混淆矩阵是：
 
 <div align=center><img src='./images/weather-b-matrix.gif'/></div>
 
-注意矩阵的每一行之和是1。
+**注意矩阵的每一行之和是1。**
 
 ### 3、总结（Summary）
 
 我们已经看到了**在一些过程中一个观察序列与一个底层马尔科夫过程（underlying Markov process）是概率相关的**。在这些例子中，观察状态的数目可以和隐藏状态的数目可以不相同。
 
-我们使用一个**隐马尔科夫模型（HMM）**对这些例子建模。这个模型包含两组状态集合和三组概率集合：
+我们使用一个 **隐马尔科夫模型(HMM)** 对这些例子建模。这个模型包含两组状态集合和三组概率集合：
 
 - 隐藏状态：一个系统的（真实）状态，可以由一个马尔科夫过程进行描述（例如，天气）。
 - 观察状态：在这个过程中‘可视’的状态（例如，海藻的湿度）。
@@ -172,7 +172,7 @@
 - 状态转移矩阵：包含了一个隐藏状态到另一个隐藏状态的概率。
 - 混淆矩阵：给定隐马尔科夫模型，包含了处于某个隐藏状态时**可观察到**某个观察状态的概率。
 
-因此，一个隐马尔科夫模型是在一个标准的马尔科夫过程中引入一组观察状态，以及其与隐藏状态间的一些概率关系。
+**因此，一个隐马尔科夫模型是在一个标准的马尔科夫过程中引入一组观察状态，以及其与隐藏状态间的一些概率关系。**
 
 ## 四、隐马尔科夫模型（Hidden Markov Models）
 
@@ -197,7 +197,7 @@
 
 考虑这样的问题，我们有一些描述不同系统的隐马尔科夫模型（也就是一些(<img src="https://latex.codecogs.com/gif.latex?\pi" title="\pi" />,A,B)三元组的集合）及一个观察序列。我们想知道**哪一个HMM最有可能产生了这个给定的观察序列**。例如，对于海藻来说，我们也许会有一个“夏季”模型和一个“冬季”模型，因为不同季节之间的情况是不同的——我们也许想根据海藻湿度的观察序列来确定当前的季节。
 
-我们使用**前向算法（forward algorithm）**来计算在给定一些隐马尔科夫模型（HMM）后观察序列的概率，并因此选择最合适的隐马尔科夫模型(HMM)。
+我们使用 **前向算法（forward algorithm）** 来计算在给定一些隐马尔科夫模型（HMM）后观察序列的概率，并因此选择最合适的隐马尔科夫模型(HMM)。
 
 这种类型的问题出现在语音识别中，其中将使用大量的马尔科夫模型，每个模型都对特定单词进行建模。An observation sequence is formed from a spoken word, and this word is recognised by identifying the most probable HMM for the observations.（感觉翻译起来比较别扭，所以还是直接贴原文吧）
 
@@ -209,7 +209,7 @@
 
 考虑海藻和天气这个例子，一个盲人隐士只能感觉到海藻的状态，但是他更想知道天气的情况，天气状态在这里就是隐藏状态。
 
-我们使用**Viterbi算法（Viterbi algorithm）**来确定（搜索）在已知观察序列及HMM下最可能的隐藏状态序列。
+我们使用 **Viterbi算法（Viterbi algorithm）** 来确定（搜索）在已知观察序列及HMM下最可能的隐藏状态序列。
 
 Viterbi算法（Viterbi algorithm）的另一广泛应用是自然语言处理中的词性标注。在词性标注中，句子中的单词是观察状态，词性（语法类别）是隐藏状态（注意对于许多单词，如wind，fish拥有不止一个词性）。对于每句话中的单词，通过搜索其最可能的隐藏状态，我们就可以在给定的上下文中找到每个单词最可能的词性标注。
 
