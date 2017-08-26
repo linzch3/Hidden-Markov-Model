@@ -43,6 +43,7 @@
             - [2.计算单独的delta's和phi's](#2计算单独的deltas和phis)
         - [section 3 - 总结](#section-3---总结-1)
     - [七、前向-后向算法(Forward-backward algorithm)](#七前向-后向算法forward-backward-algorithm)
+    - [八、补充：后向概率以及后向算法](#八补充后向概率以及后向算法)
 
 <!-- /TOC -->
 # HiddenMarkovModels
@@ -558,3 +559,96 @@ Pr (到达状态A最可能的路径) * Pr (X | A) * Pr (观察状态 | X)
 总之，前向-后向算法首先对于隐马尔科夫模型的参数进行一个初始的估计（这很可能是完全错误的），然后**通过对于给定的数据评估这些参数的的价值并减少它们所引起的错误来重新修订这些HMM参数**。从这个意义上讲，它是以一种**梯度下降**的形式寻找一种错误测度的最小值。
 
 之所以称其为前向-后向算法，主要是因为**对于网格中的每一个状态，它既计算到达此状态的“前向”概率（给定当前模型的近似估计），又计算生成此模型最终状态的“后向”概率（给定当前模型的近似估计）**。 这些都可以通过利用递归进行有利地计算，就像我们已经看到的。可以通过利用近似的HMM模型参数来提高这些中间概率进行调整，而这些调整又形成了前向-后向算法迭代的基础。
+
+## 八、补充：后向概率以及后向算法
+
+在上面讲到的前向算法中的局部概率也称为 **前向概率**，其可定义为**给定一个隐马尔科夫模型，在考虑递归地计算一个观察序列的概率时，到达网格中的某个中间状态时的概率**。（这样的定义实际上有点不严谨，不过用来入门理解的就好了）
+
+同样地，后向概率和前向概率是很像的，其也可以用上面的定义来定义。但是这两者的区别是怎样的呢？
+
+前向概率可以理解为 在以时间为尺度的基础下**递归向前（时间增加）**地计算观察序列概率时，对应的中间概率。
+后向概率可以理解为 在以时间为尺度的基础下**递归向后（时间减少）**地计算观察序列概率时，对应的中间概率。
+
+那么除了递归“方向”的不一样，两个算法的基本思路都是很像的。其用途也是：**给定HMM和观察序列，可求出观察序列在该HMM下发生的概率。**
+
+回顾**前向算法**：
+
+在t=1时刻所有状态的局部概率alpha为：
+
+<div align=center><img src="https://latex.codecogs.com/gif.latex?\alpha_1(j)=\pi_j*b_{jk_1}" title="\alpha_1(j)=\pi_j*b_{jk_1}" /></div>
+
+在t=2，... ，T时刻，局部概率alpha为:
+
+<div align=center><img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\alpha_{t&plus;1}(j)=b_{jk_{t&plus;1}}\sum_{i=1}^{n}\alpha_t(i)a_{ij}" title="\alpha_{t+1}(j)=b_{jk_{t+1}}\sum_{i=1}^{n}\alpha_t(i)a_{ij}" /></div>
+
+
+最后，给定HMM,观察序列的概率等于t=T时刻所有局部概率之和：
+
+<div align=center><img src="https://latex.codecogs.com/gif.latex?\dpi{120}&space;Pr(Y^{(k)})&space;=&space;\sum_{j=1}^{n}\alpha_T(j)" title="Pr(Y^{(k)}) = \sum_{j=1}^{n}\alpha_T(j)" /></div>
+
+最后的求和的原因是：到时间T时，一共有N种状态发射了最后那个观察值，所以最终的结果要将这些概率加起来（因为每个隐状态都可能产生我们需要的观测值，所以都要加起来）。
+
+**后向算法**“对偶”的定义如下：
+
+由于两者递归的“方向”不一样，所以后向算法开始的时候是从t=T开始的。这里用beta区分上面的alpha。
+
+在t=T时刻，beta为：
+
+<div align=center><img src="https://latex.codecogs.com/gif.latex?\beta_T(i)=1,i=1,2,...,T" title="\beta_T(i)=1,i=1,2,...,T" /></div>
+
+**全部为1的原因是：从T+1到T的部分观察序列不存在，这是硬性规定这个值是1的。**
+
+在t=T-1,T-2,...1时刻，beta为：
+
+<div align=center><img src="https://latex.codecogs.com/gif.latex?\beta_t(i)=\sum_{j=1}^{N}a_{ij}b_{jk_{t&plus;1}}\beta_{t&plus;1}(j),i=1,2,...,N" title="\beta_t(i)=\sum_{j=1}^{N}a_{ij}b_{jk_{t+1}}\beta_{t+1}(j),i=1,2,...,N" /></div>
+
+最后，给定HMM,观察序列的概率等于t=1时刻所有局部概率之和：
+
+<div align=center><img src="https://latex.codecogs.com/gif.latex?Pr(Y^{(k)})&space;=&space;\sum_{i=1}^{N}\pi_ib_{ik_1}\beta_1(i)" title="Pr(Y^{(k)}) = \sum_{i=1}^{N}\pi_ib_{ik_1}\beta_1(i)" /></div>
+
+最后的求和的原因是：在第一个时间点上有N种后向概率都能输出从2到T的观察序列，所以乘上输出k1的概率后求和得到最终结果。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
