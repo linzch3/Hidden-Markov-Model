@@ -600,55 +600,10 @@ Pr (到达状态A最可能的路径) * Pr (X | A) * Pr (观察状态 | X)
 
 在t=T-1,T-2,...1时刻，beta为：
 
-<div align=center><img src="https://latex.codecogs.com/gif.latex?\beta_t(i)=\sum_{j=1}^{N}a_{ij}b_{jk_{t&plus;1}}\beta_{t&plus;1}(j),i=1,2,...,N" title="\beta_t(i)=\sum_{j=1}^{N}a_{ij}b_{jk_{t+1}}\beta_{t+1}(j),i=1,2,...,N" /></div>
+<div align=center><img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\beta_t(i)=\sum_{j=1}^{N}a_{ij}b_{jk_{t&plus;1}}\beta_{t&plus;1}(j),i=1,2,...,N" title="\beta_t(i)=\sum_{j=1}^{N}a_{ij}b_{jk_{t+1}}\beta_{t+1}(j),i=1,2,...,N" /></div>
 
 最后，给定HMM,观察序列的概率等于t=1时刻所有局部概率之和：
 
-<div align=center><img src="https://latex.codecogs.com/gif.latex?Pr(Y^{(k)})&space;=&space;\sum_{i=1}^{N}\pi_ib_{ik_1}\beta_1(i)" title="Pr(Y^{(k)}) = \sum_{i=1}^{N}\pi_ib_{ik_1}\beta_1(i)" /></div>
+<div align=center><img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;Pr(Y^{(k)})&space;=&space;\sum_{i=1}^{N}\pi_ib_{ik_1}\beta_1(i)" title="Pr(Y^{(k)}) = \sum_{i=1}^{N}\pi_ib_{ik_1}\beta_1(i)" /></div>
 
 最后的求和的原因是：在第一个时间点上有N种后向概率都能输出从2到T的观察序列，所以乘上输出k1的概率后求和得到最终结果。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
