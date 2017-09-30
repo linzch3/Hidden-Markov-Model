@@ -24,6 +24,8 @@
 
 - 1.[Example 1 - base on the example of wikipedia.ipynb][5]：本人整理的基于wiki上的例子的HMM实现及应用
 - 2.[Example 2 - complete implementation of HMM.ipynb][6]:几份HMM的开源实现
+- 3.[Example 3 - viterbi's application on Chinese Words Segementatio]:Viterbi算法中文分词实现（转移矩阵和发射矩阵数据来源于jieba）
 
 [5]:./Example/Example%201%20-%20base%20on%20the%20example%20of%20wikipedia.ipynb
 [6]:./Example/Example%202%20-%20%20complete%20implementation%20of%20HMM.ipynb
+[7]:./Example/Example%203%20-%20%20viterbi's%20application%20on%20Chinese%20Words%20Segementation%20.ipynb
