@@ -2,7 +2,12 @@
 
 ## 关于 Tutorial
 
-除了本repo上的Tutorial外，还可参考如下资料：
+仓库内的教程：
+
+- [University of Leeds 教程](./Tutorial%20-%20University%20of%20leeds/readme.md)
+- [中文 HMM 教程](./Tutorial%20-%20zhihu%40Nong%20Bloody/readme.md)
+
+还可参考以下资料：
 
 - 1.[國立臺灣師範大學-演算法筆記-Hidden Markov Model][1]：
     - 写得较很精简和直白，可以作为概要阅读，理论证明则没有给出
